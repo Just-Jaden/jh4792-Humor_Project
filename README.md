@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Humor Project
 
-## Getting Started
+A Next.js App Router project backed by Supabase jokes, Google authentication,
+profiles, and avatar uploads.
 
-First, run the development server:
+## Assignment 3 setup
+
+1. Copy `.env.example` to `.env.local` and add the Supabase project URL and
+   anon/publishable key.
+2. Run `supabase/assignment-3-auth.sql` in the Supabase SQL Editor.
+3. In Google Cloud, create a Web OAuth client. Use the Supabase provider
+   callback shown in the Supabase Google provider settings as Google's
+   authorized redirect URI.
+4. Enable Google in Supabase Authentication and add these application redirect
+   URLs:
+   - `http://localhost:3001/auth/callback`
+   - Your Vercel preview and production URLs ending in `/auth/callback`
+5. Add the same environment variables to Vercel and disable Vercel Deployment
+   Protection for the submitted deployment.
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001). Test `/vault` while signed
+out, complete Google sign-in, finish onboarding, edit `/profile`, and upload an
+avatar.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Binary image data is stored in Supabase Storage. Only the public URL is stored
+in `profiles.avatar_url`.
