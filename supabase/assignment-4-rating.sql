@@ -157,15 +157,31 @@ on public.caption_votes for delete
 to authenticated
 using (user_id = auth.uid());
 
-grant select on public.jokes, public.images, public.captions
-to anon, authenticated;
-grant insert, delete on public.images to authenticated;
-grant insert on public.captions to authenticated;
-grant select, insert, delete on public.caption_votes to authenticated;
+revoke all privileges on public.jokes from anon, authenticated;
+revoke all privileges on public.profiles from anon, authenticated;
+revoke all privileges on public.images from anon, authenticated;
+revoke all privileges on public.captions from anon, authenticated;
+revoke all privileges on public.caption_votes from anon, authenticated;
 
-revoke update on public.images from anon, authenticated;
-revoke update on public.captions from anon, authenticated;
-revoke update on public.caption_votes from anon, authenticated;
+grant select on public.jokes to anon, authenticated;
+
+grant select on public.profiles to authenticated;
+grant update (first_name, last_name, avatar_url, updated_at)
+on public.profiles to authenticated;
+
+grant select on public.images to anon, authenticated;
+grant insert (created_by, image_url, storage_path)
+on public.images to authenticated;
+grant delete on public.images to authenticated;
+
+grant select on public.captions to anon, authenticated;
+grant insert (image_id, created_by, content, prompt, model)
+on public.captions to authenticated;
+
+grant select on public.caption_votes to authenticated;
+grant insert (caption_id, user_id, vote)
+on public.caption_votes to authenticated;
+grant delete on public.caption_votes to authenticated;
 grant update (vote) on public.caption_votes to authenticated;
 
 insert into storage.buckets (id, name, public)

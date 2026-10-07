@@ -61,7 +61,10 @@ in `profiles.avatar_url`.
 
 3. Run `supabase/assignment-4-rating.sql` in the Supabase SQL Editor. It creates
    the image, caption, and vote tables; keeps caption scores synchronized; adds
-   the `memes` bucket; and enables strict RLS on every application table.
+   the `memes` bucket; enables strict RLS on every application table; and
+   replaces Supabase's broad default table grants with exact per-role and
+   per-column privileges. Re-run the file after pulling changes because it is
+   idempotent and may include policy hardening.
 4. In Supabase Table Editor, confirm RLS is enabled for `jokes`, `profiles`,
    `images`, `captions`, and `caption_votes`.
 
