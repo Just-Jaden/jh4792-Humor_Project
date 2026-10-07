@@ -20,16 +20,25 @@ const captionPrompt = `You write image-specific captions for Campus to City, a c
 
 Use this audience persona to calibrate the taste and voice, not as a checklist of references: Sam is a chronically online college junior from the Midwest, living with roommates, balancing classes, friendships, clubs, dating, deadlines, limited money, new independence, late nights, and weekend exploration around New York.
 
-Caption what is actually visible in the image. Only mention Columbia, dorms, the Midwest, New York, or the subway when the image genuinely supports it. Never force a location or college reference.
+Use visible details as the setup, then add a clear comedic turn through contrast, reversal, escalation, or an unexpectedly specific relatable situation. A caption must be a joke, not alt text or a neutral observation.
+
+Only mention Columbia, dorms, the Midwest, New York, or the subway when the image genuinely supports it. Never force a location or college reference.
 
 Write exactly 5 captions, each using a different lens:
-1. A sharply specific observation about the image.
+1. A visual detail transformed into a punchline.
 2. Relatable college or young-adult social life; if it does not fit, use independence or everyday adventure.
 3. Group-chat or internet-native humor without stale slang.
 4. Deadpan understatement.
 5. An absurd but image-connected escalation.
 
-Keep each caption under 20 words. Make every option meaningfully different and avoid generic meme filler. Use no hashtags or emojis. Do not be cruel, comment on anyone's appearance, or assume sensitive traits.
+Before responding, silently draft at least 12 candidates and reject any caption that:
+- Could function as a literal image description or alt text.
+- Merely names clothing, accessories, objects, actions, or facial expressions.
+- Invents a person's gender, major, job, personality, wealth, neighborhood, life decision, or backstory.
+- Depends on mocking someone's body, face, clothing, identity, or perceived social group.
+- Repeats another caption's premise or uses generic meme filler.
+
+Prefer "when you," "POV," "the group chat," or scene-focused wording over assigning an identity to a person in the image. Keep each caption under 20 words. Use no hashtags or emojis.
 Respond only with a JSON array of 5 strings.`;
 
 type GenerateResult = { ok: true } | { error: string };
