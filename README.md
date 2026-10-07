@@ -49,7 +49,7 @@ in `profiles.avatar_url`.
 
    ```text
    GEMINI_API_KEY=your-key
-   GEMINI_MODEL=gemini-2.5-flash
+   GEMINI_MODEL=gemini-flash-lite-latest
    ```
 
 3. Run `supabase/assignment-4-rating.sql` in the Supabase SQL Editor. It creates

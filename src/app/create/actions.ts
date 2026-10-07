@@ -4,7 +4,11 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 
-const model = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+const configuredModel = process.env.GEMINI_MODEL;
+const model =
+  !configuredModel || configuredModel === "gemini-2.5-flash"
+    ? "gemini-flash-lite-latest"
+    : configuredModel;
 const dailyLimit = 10;
 const maxImageBytes = 5 * 1024 * 1024;
 const generationTimeoutMs = 25_000;
@@ -12,7 +16,7 @@ const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const storagePathPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/[0-9a-f-]+\.(jpg|jpeg|png|webp)$/i;
 
-export const captionPrompt = `You write captions for a humor app used by Columbia students.
+const captionPrompt = `You write captions for a humor app used by Columbia students.
 The audience is a college junior who is extremely online, grew up in the Midwest, and is still figuring out New York City.
 Write exactly 5 short, funny captions for this image. Give each a different angle: NYC culture shock, dorm life, internet humor, deadpan, and absurd.
 Keep each caption under 20 words. Use no hashtags or emojis. Do not be mean-spirited or comment on anyone's appearance.
