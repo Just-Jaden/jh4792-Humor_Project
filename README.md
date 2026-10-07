@@ -6,12 +6,19 @@ vote captions up or down.
 
 ## Product intent
 
-- **Daily return:** a changing feed of Columbia, dorm, and NYC moments, with
-  votes continually re-ranking each post's five captions.
-- **Popular content:** the generation prompt targets a chronically online
-  Columbia junior navigating New York after growing up in the Midwest.
-- **Improvement over a single AI answer:** every photo gets five intentionally
-  different comedic angles, and the community decides which one wins.
+- **Audience:** Sam's biography is a taste profile, not mandatory caption
+  subject matter. The voice is image-first, current, specific, and tuned to an
+  18-to-22-year-old balancing classes, roommates, friendships, dating, clubs,
+  deadlines, limited money, new independence, late nights, and exploration.
+- **Daily return:** a changing feed captures the small moments from each week,
+  while community votes keep re-ranking the five captions on every post.
+- **Popular content:** captions are recognizable to Columbia students but broad
+  enough to share beyond campus. Location, dorm, subway, and Midwest references
+  appear only when the photo earns them instead of becoming repetitive filler.
+- **Improvement over a single AI answer:** every photo gets a specific
+  observation, a relatable young-adult angle, an internet-native angle, a
+  deadpan option, and an absurd escalation. Voting turns generation into a
+  feedback loop that reveals what the audience actually finds funny.
 
 ## Assignment 3 setup
 

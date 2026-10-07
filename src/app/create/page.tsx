@@ -18,11 +18,12 @@ export default async function CreatePage() {
         Create a post
       </p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight">
-        Turn a city moment into five punchlines
+        Turn a moment from your life into five punchlines
       </h1>
       <p className="mt-3 max-w-xl text-zinc-600 dark:text-zinc-400">
-        Upload a campus, dorm, or NYC photo. Gemini will try five different
-        comedic angles, and the community will rank the best one.
+        Upload the class, roommate, friendship, food-run, or weekend moment your
+        group chat would understand. Gemini will try five different comedic
+        angles, and the community will rank the best one.
       </p>
       <UploadForm />
     </main>

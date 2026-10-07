@@ -166,7 +166,8 @@ export default function UploadForm() {
           />
         </span>
         <span className="text-xs text-zinc-500">
-          Pick a clear campus, dorm, or NYC moment for the best captions.
+          Pick a clear moment from campus, your social life, or wherever the
+          weekend took you.
         </span>
       </label>
 

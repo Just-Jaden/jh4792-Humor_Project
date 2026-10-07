@@ -52,14 +52,15 @@ export default async function Home() {
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12 sm:px-10">
       <section className="rounded-3xl bg-zinc-950 px-6 py-10 text-white sm:px-10">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-400">
-          Campus to city
+          Life off syllabus
         </p>
         <h1 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight">
           Five AI punchlines. One community favorite.
         </h1>
         <p className="mt-4 max-w-xl text-zinc-300">
-          Share the Columbia, dorm, and NYC moments that deserve a caption.
-          Vote the funniest angle to the top.
+          From roommate lore and late-night food runs to new friendships and
+          weekend detours, share the moments that define college life. Vote the
+          funniest angle to the top.
         </p>
         <Link
           href={user ? "/create" : "/login"}
@@ -73,7 +74,8 @@ export default async function Home() {
         <section className="mt-10 rounded-2xl border border-dashed border-black/15 p-8 text-center dark:border-white/20">
           <h2 className="text-xl font-semibold">The feed is ready for a first post.</h2>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-            Upload a campus or NYC photo and let Gemini try five comedic angles.
+            Upload a moment from your week and let Gemini try five distinct
+            comedic angles.
           </p>
         </section>
       ) : (

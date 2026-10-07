@@ -16,10 +16,20 @@ const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const storagePathPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/[0-9a-f-]+\.(jpg|jpeg|png|webp)$/i;
 
-const captionPrompt = `You write captions for a humor app used by Columbia students.
-The audience is a college junior who is extremely online, grew up in the Midwest, and is still figuring out New York City.
-Write exactly 5 short, funny captions for this image. Give each a different angle: NYC culture shock, dorm life, internet humor, deadpan, and absurd.
-Keep each caption under 20 words. Use no hashtags or emojis. Do not be mean-spirited or comment on anyone's appearance.
+const captionPrompt = `You write image-specific captions for Campus to City, a community humor app for Columbia undergraduates ages 18 to 22.
+
+Use this audience persona to calibrate the taste and voice, not as a checklist of references: Sam is a chronically online college junior from the Midwest, living with roommates, balancing classes, friendships, clubs, dating, deadlines, limited money, new independence, late nights, and weekend exploration around New York.
+
+Caption what is actually visible in the image. Only mention Columbia, dorms, the Midwest, New York, or the subway when the image genuinely supports it. Never force a location or college reference.
+
+Write exactly 5 captions, each using a different lens:
+1. A sharply specific observation about the image.
+2. Relatable college or young-adult social life; if it does not fit, use independence or everyday adventure.
+3. Group-chat or internet-native humor without stale slang.
+4. Deadpan understatement.
+5. An absurd but image-connected escalation.
+
+Keep each caption under 20 words. Make every option meaningfully different and avoid generic meme filler. Use no hashtags or emojis. Do not be cruel, comment on anyone's appearance, or assume sensitive traits.
 Respond only with a JSON array of 5 strings.`;
 
 type GenerateResult = { ok: true } | { error: string };
