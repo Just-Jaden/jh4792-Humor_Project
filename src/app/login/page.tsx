@@ -18,7 +18,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <section className="w-full max-w-md rounded-2xl border border-black/10 bg-white p-8 text-center shadow-sm dark:border-white/15 dark:bg-zinc-950">
         <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
         <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-          Sign in to manage your profile and enter the Joke Vault.
+          Sign in to create caption posts, vote for favorites, manage your
+          profile, and enter the Joke Vault.
         </p>
         {message ? (
           <p className="mt-5 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">

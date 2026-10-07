@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Humor Project",
-  description: "A list of jokes served from Supabase.",
+  title: "Campus to City Captions",
+  description:
+    "Generate and rank AI captions for Columbia, dorm, and New York City moments.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

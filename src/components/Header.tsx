@@ -25,13 +25,22 @@ export default async function Header() {
 
   return (
     <header className="border-b border-black/10 bg-white dark:border-white/15 dark:bg-black">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="font-semibold">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+        <Link href="/" className="shrink-0 font-semibold">
           Humor Project
         </Link>
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex w-full flex-wrap items-center justify-between gap-3 text-sm sm:w-auto sm:justify-end sm:gap-4">
+          <Link href="/jokes" className="hover:underline">
+            Jokes
+          </Link>
           {user ? (
             <>
+              <Link
+                href="/create"
+                className="rounded-lg bg-black px-3 py-2 font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+              >
+                Create
+              </Link>
               <Link href="/vault" className="hover:underline">
                 Vault
               </Link>
