@@ -103,7 +103,16 @@ export default function UploadForm() {
     }
 
     setStatus("Gemini is writing five caption options...");
-    const result = await generateCaptions(storagePath);
+    let result: Awaited<ReturnType<typeof generateCaptions>>;
+    try {
+      result = await generateCaptions(storagePath);
+    } catch {
+      setStatus(
+        "The caption request was interrupted. Refresh the page and try again."
+      );
+      setIsWorking(false);
+      return;
+    }
 
     if ("error" in result) {
       setStatus(result.error);

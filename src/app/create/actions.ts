@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 const model = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 const dailyLimit = 10;
 const maxImageBytes = 5 * 1024 * 1024;
+const generationTimeoutMs = 25_000;
 const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const storagePathPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/[0-9a-f-]+\.(jpg|jpeg|png|webp)$/i;
@@ -129,7 +130,10 @@ export async function generateCaptions(
 
   let captions: string[] | null = null;
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = new GoogleGenAI({
+      apiKey,
+      httpOptions: { timeout: generationTimeoutMs },
+    });
     const response = await ai.models.generateContent({
       model,
       contents: [
@@ -152,8 +156,15 @@ export async function generateCaptions(
       },
     });
     captions = parseCaptions(response.text);
-  } catch {
-    return fail("The AI could not write captions right now. Try again.");
+  } catch (error) {
+    const timedOut =
+      error instanceof Error &&
+      error.message.toLowerCase().includes("timeout");
+    return fail(
+      timedOut
+        ? "Caption generation took too long. Try a smaller image or try again."
+        : "The AI could not write captions right now. Try again."
+    );
   }
 
   if (!captions) {
