@@ -128,15 +128,45 @@ export default function UploadForm() {
     <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
       <label className="flex flex-col gap-2">
         <span className="text-sm font-medium">Photo</span>
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          disabled={isWorking}
-          onChange={(event) => selectFile(event.target.files?.[0] ?? null)}
-          className="text-sm"
-        />
+        <span
+          className={`flex cursor-pointer items-center gap-4 rounded-2xl border border-dashed border-black/20 bg-zinc-50 p-5 transition hover:border-black/40 hover:bg-zinc-100 dark:border-white/20 dark:bg-zinc-950 dark:hover:border-white/40 dark:hover:bg-zinc-900 ${
+            isWorking ? "pointer-events-none opacity-60" : ""
+          }`}
+        >
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black text-white dark:bg-white dark:text-black">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 16V4" />
+              <path d="m7 9 5-5 5 5" />
+              <path d="M5 20h14" />
+            </svg>
+          </span>
+          <span className="min-w-0">
+            <span className="block font-medium">
+              {file ? "Choose a different photo" : "Upload a photo"}
+            </span>
+            <span className="mt-1 block truncate text-sm text-zinc-500">
+              {file?.name ?? "JPEG, PNG, or WebP up to 5 MB"}
+            </span>
+          </span>
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            disabled={isWorking}
+            onChange={(event) => selectFile(event.target.files?.[0] ?? null)}
+            className="sr-only"
+          />
+        </span>
         <span className="text-xs text-zinc-500">
-          JPEG, PNG, or WebP up to 5 MB.
+          Pick a clear campus, dorm, or NYC moment for the best captions.
         </span>
       </label>
 

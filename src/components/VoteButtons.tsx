@@ -61,15 +61,30 @@ export default function VoteButtons({
           disabled={isPending}
           aria-label="Upvote caption"
           aria-pressed={currentVote === 1}
-          className={`rounded-md px-2 py-1 text-sm disabled:opacity-50 ${
+          title="Upvote"
+          className={`flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
             currentVote === 1
-              ? "bg-emerald-100 font-bold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
-              : "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              ? "bg-emerald-100 text-emerald-700 shadow-sm dark:bg-emerald-950 dark:text-emerald-300"
+              : "text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
           }`}
         >
-          Up
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 15 6-6 6 6" />
+          </svg>
         </button>
-        <span className="min-w-6 text-center text-sm font-semibold tabular-nums">
+        <span
+          className="min-w-7 text-center text-sm font-semibold tabular-nums"
+          aria-label={`${shownScore} votes`}
+        >
           {shownScore}
         </span>
         <button
@@ -78,13 +93,25 @@ export default function VoteButtons({
           disabled={isPending}
           aria-label="Downvote caption"
           aria-pressed={currentVote === -1}
-          className={`rounded-md px-2 py-1 text-sm disabled:opacity-50 ${
+          title="Downvote"
+          className={`flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
             currentVote === -1
-              ? "bg-rose-100 font-bold text-rose-700 dark:bg-rose-950 dark:text-rose-300"
-              : "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900"
+              ? "bg-rose-100 text-rose-700 shadow-sm dark:bg-rose-950 dark:text-rose-300"
+              : "text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
           }`}
         >
-          Down
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
         </button>
       </div>
       {error ? (
