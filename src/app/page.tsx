@@ -48,7 +48,7 @@ export default async function Home() {
     votes?.forEach((item) => myVotes.set(item.caption_id, item.vote));
   }
 
-  const ratingActs: RatingAct[] = (images ?? []).flatMap(
+  const actsByImage: RatingAct[][] = (images ?? []).map(
     (image, imageIndex) =>
       [...(image.captions ?? [])]
         .sort((left, right) => right.score - left.score)
@@ -67,6 +67,18 @@ export default async function Home() {
           }).format(new Date(image.created_at)),
         }))
   );
+
+  const longestCaptionSet = Math.max(
+    0,
+    ...actsByImage.map((acts) => acts.length)
+  );
+  const ratingActs: RatingAct[] = Array.from(
+    { length: longestCaptionSet },
+    (_, captionIndex) =>
+      actsByImage
+        .map((acts) => acts[captionIndex])
+        .filter((act): act is RatingAct => Boolean(act))
+  ).flat();
 
   return (
     <main className="theater-page flex-1">
