@@ -52,66 +52,56 @@ export default function VoteButtons({
     });
   }
 
+  const scoreTone =
+    shownScore > 0
+      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+      : shownScore < 0
+        ? "border-red-200 bg-red-50 text-red-700"
+        : "border-stone-200 bg-stone-50 text-stone-600";
+
   return (
     <div className="shrink-0">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         <button
           type="button"
           onClick={() => cast(1)}
           disabled={isPending}
-          aria-label="Upvote caption"
+          aria-label="Clap for this caption"
           aria-pressed={currentVote === 1}
-          title="Upvote"
-          className={`flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
+          title="Clap"
+          className={`flex h-10 w-10 items-center justify-center rounded-full border text-xl transition hover:-translate-y-0.5 disabled:opacity-50 ${
             currentVote === 1
-              ? "bg-emerald-100 text-emerald-700 shadow-sm dark:bg-emerald-950 dark:text-emerald-300"
-              : "text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
+              ? "border-emerald-300 bg-emerald-100 shadow-sm shadow-emerald-200"
+              : "border-stone-200 bg-white hover:border-emerald-300 hover:bg-emerald-50"
           }`}
         >
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m6 15 6-6 6 6" />
-          </svg>
+          <span aria-hidden="true">👏</span>
         </button>
         <span
-          className="min-w-7 text-center text-sm font-semibold tabular-nums"
-          aria-label={`${shownScore} votes`}
+          className={`flex min-w-14 flex-col items-center rounded-lg border px-2 py-1 font-bold tabular-nums ${scoreTone}`}
+          aria-label={`Score: ${shownScore}`}
         >
-          {shownScore}
+          <span className="text-[0.55rem] font-extrabold uppercase tracking-[0.14em] opacity-65">
+            Score
+          </span>
+          <span className="text-base leading-none">
+            {shownScore > 0 ? `+${shownScore}` : shownScore}
+          </span>
         </span>
         <button
           type="button"
           onClick={() => cast(-1)}
           disabled={isPending}
-          aria-label="Downvote caption"
+          aria-label="Give this caption a thumbs down"
           aria-pressed={currentVote === -1}
-          title="Downvote"
-          className={`flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
+          title="Thumbs down"
+          className={`flex h-10 w-10 items-center justify-center rounded-full border text-xl transition hover:-translate-y-0.5 disabled:opacity-50 ${
             currentVote === -1
-              ? "bg-rose-100 text-rose-700 shadow-sm dark:bg-rose-950 dark:text-rose-300"
-              : "text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
+              ? "border-red-300 bg-red-100 shadow-sm shadow-red-200"
+              : "border-stone-200 bg-white hover:border-red-300 hover:bg-red-50"
           }`}
         >
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+          <span aria-hidden="true">👎</span>
         </button>
       </div>
       {error ? (
