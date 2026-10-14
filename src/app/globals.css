@@ -772,6 +772,7 @@ body {
 
 .feed-heading h2 {
   margin-top: 0.3rem;
+  color: var(--wine);
   font-family: var(--font-bebas-neue), sans-serif;
   font-size: clamp(2.8rem, 7vw, 5.5rem);
   letter-spacing: 0.035em;
