@@ -1,5 +1,5 @@
 import Link from "next/link";
-import VoteButtons from "@/components/VoteButtons";
+import StageRating, { type RatingAct } from "@/components/StageRating";
 import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -47,6 +47,26 @@ export default async function Home() {
 
     votes?.forEach((item) => myVotes.set(item.caption_id, item.vote));
   }
+
+  const ratingActs: RatingAct[] = (images ?? []).flatMap(
+    (image, imageIndex) =>
+      [...(image.captions ?? [])]
+        .sort((left, right) => right.score - left.score)
+        .map((caption, captionIndex) => ({
+          captionId: caption.id,
+          imageUrl: image.image_url,
+          caption: caption.content,
+          score: caption.score,
+          myVote: myVotes.get(caption.id) ?? 0,
+          imageNumber: imageIndex + 1,
+          captionNumber: captionIndex + 1,
+          createdAt: image.created_at,
+          displayDate: new Intl.DateTimeFormat("en-US", {
+            month: "short",
+            day: "numeric",
+          }).format(new Date(image.created_at)),
+        }))
+  );
 
   return (
     <main className="theater-page flex-1">
@@ -193,59 +213,7 @@ export default async function Home() {
             </Link>
           </section>
         ) : (
-          <section className="feed-grid" aria-label="Caption feed">
-            {images.map((image, imageIndex) => {
-              const captions = [...(image.captions ?? [])].sort(
-                (left, right) => right.score - left.score
-              );
-
-              return (
-                <article key={image.id} className="meme-card">
-                  <div className="card-image-wrap">
-                    <span className="act-number">
-                      Act {String(imageIndex + 1).padStart(2, "0")}
-                    </span>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={image.image_url}
-                      alt="Community caption challenge"
-                    />
-                  </div>
-                  <div className="card-content">
-                    <div className="card-heading">
-                      <div>
-                        <p className="eyebrow">Crowd work</p>
-                        <h3>Rank the punchlines</h3>
-                      </div>
-                      <time dateTime={image.created_at}>
-                        {new Intl.DateTimeFormat("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        }).format(new Date(image.created_at))}
-                      </time>
-                    </div>
-
-                    <ol className="caption-list">
-                      {captions.map((caption, index) => (
-                        <li key={caption.id}>
-                          <span className="caption-rank">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <p>{caption.content}</p>
-                          <VoteButtons
-                            captionId={caption.id}
-                            score={caption.score}
-                            myVote={myVotes.get(caption.id) ?? 0}
-                            loggedIn={Boolean(user)}
-                          />
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </article>
-              );
-            })}
-          </section>
+          <StageRating acts={ratingActs} loggedIn={Boolean(user)} />
         )}
       </div>
     </main>

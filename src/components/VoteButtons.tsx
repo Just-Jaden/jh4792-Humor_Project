@@ -9,6 +9,11 @@ type VoteButtonsProps = {
   score: number;
   myVote: number;
   loggedIn: boolean;
+  onReaction?: (
+    reaction: 1 | -1,
+    nextVote: number,
+    nextScore: number
+  ) => void;
 };
 
 export default function VoteButtons({
@@ -16,10 +21,14 @@ export default function VoteButtons({
   score,
   myVote,
   loggedIn,
+  onReaction,
 }: VoteButtonsProps) {
   const [currentVote, setCurrentVote] = useState(myVote);
   const [shownScore, setShownScore] = useState(score);
   const [error, setError] = useState("");
+  const [burst, setBurst] = useState<{ id: number; emoji: string } | null>(
+    null
+  );
   const [isPending, startTransition] = useTransition();
 
   if (!loggedIn) {
@@ -37,10 +46,11 @@ export default function VoteButtons({
     const previousVote = currentVote;
     const previousScore = shownScore;
     const nextVote = currentVote === value ? 0 : value;
+    const nextScore = shownScore - currentVote + nextVote;
 
     setError("");
     setCurrentVote(nextVote);
-    setShownScore(shownScore - currentVote + nextVote);
+    setShownScore(nextScore);
 
     startTransition(async () => {
       const result = await vote(captionId, value);
@@ -48,7 +58,14 @@ export default function VoteButtons({
         setCurrentVote(previousVote);
         setShownScore(previousScore);
         setError(result.error);
+        return;
       }
+
+      setBurst({
+        id: Date.now(),
+        emoji: value === 1 ? "👏" : "👎",
+      });
+      onReaction?.(value, nextVote, nextScore);
     });
   }
 
@@ -60,7 +77,18 @@ export default function VoteButtons({
         : "border-stone-200 bg-stone-50 text-stone-600";
 
   return (
-    <div className="shrink-0">
+    <div className="vote-reactions shrink-0">
+      {burst ? (
+        <span
+          key={burst.id}
+          className="reaction-burst"
+          aria-hidden="true"
+        >
+          {Array.from({ length: 15 }, (_, index) => (
+            <i key={index}>{burst.emoji}</i>
+          ))}
+        </span>
+      ) : null}
       <div className="flex items-center gap-1.5">
         <button
           type="button"
