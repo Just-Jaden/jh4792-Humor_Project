@@ -49,94 +49,205 @@ export default async function Home() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12 sm:px-10">
-      <section className="rounded-3xl bg-zinc-950 px-6 py-10 text-white sm:px-10">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-400">
-          Life off syllabus
-        </p>
-        <h1 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight">
-          Five AI punchlines. One community favorite.
-        </h1>
-        <p className="mt-4 max-w-xl text-zinc-300">
-          From roommate lore and late-night food runs to new friendships and
-          weekend detours, share the moments that define college life. Vote the
-          funniest angle to the top.
-        </p>
+    <main className="theater-page flex-1">
+      <section className="theater" aria-labelledby="show-title">
+        <div className="theater-ambient" aria-hidden="true" />
+        <div className="spotlight spotlight-left" aria-hidden="true" />
+        <div className="spotlight spotlight-right" aria-hidden="true" />
+
+        <div className="stage">
+          <div className="stage-sign">
+            <span>Tonight at</span>
+            <strong id="show-title">The Humor Project</strong>
+            <small>AI-generated • audience-approved</small>
+          </div>
+
+          <Link
+            href={user ? "/create" : "/login"}
+            className="microphone-link"
+            aria-label={
+              user
+                ? "Go to the microphone and create a meme"
+                : "Sign in to create a meme"
+            }
+          >
+            <span className="interaction-label">
+              <span>Step up</span>
+              Create a meme
+            </span>
+            <span className="microphone" aria-hidden="true">
+              <span className="mic-head">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span className="mic-neck" />
+              <span className="mic-stand" />
+              <span className="mic-base" />
+            </span>
+          </Link>
+
+          <div className="stage-floor" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+
+        <div className="curtain curtain-left" aria-hidden="true">
+          <span className="curtain-fold curtain-fold-1" />
+          <span className="curtain-fold curtain-fold-2" />
+          <span className="curtain-fold curtain-fold-3" />
+          <span className="curtain-tie" />
+        </div>
+        <div className="curtain curtain-right" aria-hidden="true">
+          <span className="curtain-fold curtain-fold-1" />
+          <span className="curtain-fold curtain-fold-2" />
+          <span className="curtain-fold curtain-fold-3" />
+          <span className="curtain-tie" />
+        </div>
+        <div className="curtain-valance" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+
+        <div className="audience-floor" aria-hidden="true" />
+        <div className="audience-scene">
+          <div className="table table-left" aria-hidden="true">
+            <span className="glass glass-left" />
+            <span className="table-top" />
+            <span className="table-leg" />
+          </div>
+          <div className="chair chair-left" aria-hidden="true">
+            <span className="chair-back" />
+            <span className="chair-seat" />
+            <span className="chair-leg chair-leg-left" />
+            <span className="chair-leg chair-leg-right" />
+          </div>
+
+          <div className="table table-right" aria-hidden="true">
+            <span className="candle" />
+            <span className="table-top" />
+            <span className="table-leg" />
+          </div>
+          <div className="chair chair-right" aria-hidden="true">
+            <span className="chair-back" aria-hidden="true" />
+            <span className="chair-seat" aria-hidden="true" />
+            <span className="chair-leg chair-leg-left" aria-hidden="true" />
+            <span className="chair-leg chair-leg-right" aria-hidden="true" />
+          </div>
+        </div>
+
+        <div className="seat-row seat-row-left" aria-hidden="true">
+          <span />
+          <span />
+        </div>
+        <div className="seat-row seat-row-right" aria-hidden="true">
+          <span />
+          <span />
+        </div>
+
         <Link
-          href={user ? "/create" : "/login"}
-          className="mt-6 inline-flex rounded-lg bg-white px-4 py-2 font-medium text-black hover:bg-zinc-200"
+          href="#caption-feed"
+          className="audience-link"
+          aria-label="Enter the audience area to view and vote on community memes"
         >
-          {user ? "Create a caption post" : "Sign in to create and vote"}
+          <span className="audience-link-label">
+            <span>Take a seat</span>
+            View &amp; vote
+          </span>
         </Link>
+
+        <div className="show-intro">
+          <p>From your seat, the stage is yours.</p>
+          <span>Choose the microphone or enter the audience</span>
+        </div>
       </section>
 
-      {!images || images.length === 0 ? (
-        <section className="mt-10 rounded-2xl border border-dashed border-black/15 p-8 text-center dark:border-white/20">
-          <h2 className="text-xl font-semibold">The feed is ready for a first post.</h2>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-            Upload a moment from your week and let Gemini try five distinct
-            comedic angles.
-          </p>
-        </section>
-      ) : (
-        <section className="mt-10 space-y-8" aria-label="Caption feed">
-          {images.map((image) => {
-            const captions = [...(image.captions ?? [])].sort(
-              (left, right) => right.score - left.score
-            );
+      <div id="caption-feed" className="feed-wrap">
+        <div className="feed-heading">
+          <div>
+            <p className="eyebrow">Audience favorites</p>
+            <h2>Tonight&apos;s lineup</h2>
+          </div>
+          <Link href={user ? "/create" : "/login"} className="feed-cta">
+            Submit your moment <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
 
-            return (
-              <article
-                key={image.id}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm dark:border-white/15 dark:bg-zinc-950"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={image.image_url}
-                  alt="Community caption challenge"
-                  className="max-h-[42rem] w-full bg-zinc-100 object-contain dark:bg-black"
-                />
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <h2 className="font-semibold">Rank the captions</h2>
-                    <time
-                      dateTime={image.created_at}
-                      className="text-xs text-zinc-500"
-                    >
-                      {new Intl.DateTimeFormat("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      }).format(new Date(image.created_at))}
-                    </time>
+        {!images || images.length === 0 ? (
+          <section className="empty-stage">
+            <span className="empty-mic" aria-hidden="true">MIC</span>
+            <h3>The opening slot is yours.</h3>
+            <p>
+              Upload a moment and let Gemini take five different swings at the
+              punchline.
+            </p>
+            <Link href={user ? "/create" : "/login"}>
+              Be the first act
+            </Link>
+          </section>
+        ) : (
+          <section className="feed-grid" aria-label="Caption feed">
+            {images.map((image, imageIndex) => {
+              const captions = [...(image.captions ?? [])].sort(
+                (left, right) => right.score - left.score
+              );
+
+              return (
+                <article key={image.id} className="meme-card">
+                  <div className="card-image-wrap">
+                    <span className="act-number">
+                      Act {String(imageIndex + 1).padStart(2, "0")}
+                    </span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={image.image_url}
+                      alt="Community caption challenge"
+                    />
                   </div>
+                  <div className="card-content">
+                    <div className="card-heading">
+                      <div>
+                        <p className="eyebrow">Crowd work</p>
+                        <h3>Rank the punchlines</h3>
+                      </div>
+                      <time dateTime={image.created_at}>
+                        {new Intl.DateTimeFormat("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        }).format(new Date(image.created_at))}
+                      </time>
+                    </div>
 
-                  <ol className="mt-4 divide-y divide-black/10 dark:divide-white/10">
-                    {captions.map((caption, index) => (
-                      <li
-                        key={caption.id}
-                        className="flex items-start justify-between gap-4 py-4 first:pt-0 last:pb-0"
-                      >
-                        <div className="flex min-w-0 gap-3">
-                          <span className="text-sm font-semibold text-zinc-400">
-                            {index + 1}
+                    <ol className="caption-list">
+                      {captions.map((caption, index) => (
+                        <li key={caption.id}>
+                          <span className="caption-rank">
+                            {String(index + 1).padStart(2, "0")}
                           </span>
                           <p>{caption.content}</p>
-                        </div>
-                        <VoteButtons
-                          captionId={caption.id}
-                          score={caption.score}
-                          myVote={myVotes.get(caption.id) ?? 0}
-                          loggedIn={Boolean(user)}
-                        />
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </article>
-            );
-          })}
-        </section>
-      )}
+                          <VoteButtons
+                            captionId={caption.id}
+                            score={caption.score}
+                            myVote={myVotes.get(caption.id) ?? 0}
+                            loggedIn={Boolean(user)}
+                          />
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        )}
+      </div>
     </main>
   );
 }

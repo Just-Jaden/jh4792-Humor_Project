@@ -24,29 +24,33 @@ export default async function Header() {
   }
 
   return (
-    <header className="border-b border-black/10 bg-white dark:border-white/15 dark:bg-black">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-        <Link href="/" className="shrink-0 font-semibold">
-          Humor Project
+    <header className="site-header">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4 sm:px-8">
+        <Link href="/" className="brand-lockup">
+          <span className="brand-mark" aria-hidden="true">HP</span>
+          <span>
+            <strong>The Humor Project</strong>
+            <small>Open mic, open vote</small>
+          </span>
         </Link>
-        <nav className="flex w-full flex-wrap items-center justify-between gap-3 text-sm sm:w-auto sm:justify-end sm:gap-4">
-          <Link href="/jokes" className="hover:underline">
+        <nav className="site-nav">
+          <Link href="/jokes">
             Jokes
           </Link>
           {user ? (
             <>
               <Link
                 href="/create"
-                className="rounded-lg bg-black px-3 py-2 font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+                className="nav-spotlight"
               >
                 Create
               </Link>
-              <Link href="/vault" className="hover:underline">
+              <Link href="/vault">
                 Vault
               </Link>
               <Link
                 href="/profile"
-                className="flex items-center gap-2 hover:underline"
+                className="flex items-center gap-2"
               >
                 {profile?.avatar_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -61,7 +65,7 @@ export default async function Header() {
               <form action="/auth/signout" method="post">
                 <button
                   type="submit"
-                  className="text-zinc-600 hover:underline dark:text-zinc-400"
+                  className="nav-signout"
                 >
                   Sign out
                 </button>
@@ -70,7 +74,7 @@ export default async function Header() {
           ) : (
             <Link
               href="/login"
-              className="rounded-lg bg-black px-4 py-2 font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+              className="nav-spotlight"
             >
               Sign in
             </Link>
